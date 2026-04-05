@@ -1,0 +1,9 @@
+[
+  {"name": "Goa", "type": "beach", "budget": "high", "description": "beaches and nightlife"},
+  {"name": "Gokarna", "type": "beach", "budget": "low", "description": "peaceful beach"},
+  {"name": "Kerala", "type": "beach", "budget": "high", "description": "backwaters"},
+  {"name": "Manali", "type": "mountain", "budget": "medium", "description": "snow hills"},
+  {"name": "Ooty", "type": "hill", "budget": "low", "description": "cool climate"},
+  {"name": "Varanasi", "type": "temple", "budget": "low", "description": "spiritual city"},
+  {"name": "Jaipur", "type": "city", "budget": "high", "description": "palaces"}
+]
