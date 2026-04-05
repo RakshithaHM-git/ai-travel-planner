@@ -53,15 +53,34 @@ function App() {
   // 🤖 AI Chat function
   const askAI = () => {
     const msg = chat.toLowerCase();
+
     if (msg.includes("temple")) {
-      setReply("Try visiting temples from the results above 🛕");
+      if (data?.temple?.length > 0) {
+        // Pick a random temple from the search results
+        const temple = data.temple[Math.floor(Math.random() * data.temple.length)];
+        setReply(`Try visiting ${temple.name}. Info: ${temple.description}`);
+      } else {
+        setReply("No temples found yet. Search a location first 🛕");
+      }
     } else if (msg.includes("beach")) {
-      setReply("Beaches are perfect for relaxing 🌊");
+      if (data?.beach?.length > 0) {
+        const beach = data.beach[Math.floor(Math.random() * data.beach.length)];
+        setReply(`Try visiting ${beach.name}. Info: ${beach.description}`);
+      } else {
+        setReply("No beaches found yet. Search a location first 🌊");
+      }
     } else if (msg.includes("adventure")) {
-      setReply("Adventure trips include hills, trekking, and more 🧗");
+      if (data?.adventure?.length > 0) {
+        const adv = data.adventure[Math.floor(Math.random() * data.adventure.length)];
+        setReply(`Try visiting ${adv.name}. Info: ${adv.description}`);
+      } else {
+        setReply("No adventure spots found yet. Search a location first 🧗");
+      }
     } else {
       setReply("Ask about temples, beaches, or adventure 😊");
     }
+
+    setChat(""); // clear chat input
   };
 
   return (
@@ -89,7 +108,6 @@ function App() {
             border: "1px solid #ccc",
           }}
         />
-
         <button
           onClick={searchPlace}
           style={{
@@ -109,9 +127,8 @@ function App() {
       {/* 📍 Results */}
       {data &&
         ["temple", "beach", "adventure"].map((category) => (
-          <div key={category}>
+          <div key={category} style={{ marginBottom: 20 }}>
             <h2 style={{ textTransform: "capitalize" }}>{category}</h2>
-
             {data[category].map((place, i) => (
               <div
                 key={i}
@@ -125,7 +142,6 @@ function App() {
               >
                 <h4>{place.name}</h4>
                 <p>{place.description}</p>
-
                 <button
                   onClick={() => setSelectedPlace(place.view)}
                   style={{
@@ -161,12 +177,11 @@ function App() {
       {/* 🤖 AI Chat */}
       <div style={{ marginTop: 30 }}>
         <h2>AI Chat 🤖</h2>
-
         <input
           type="text"
           value={chat}
           onChange={(e) => setChat(e.target.value)}
-          placeholder="Ask something..."
+          placeholder="Ask about temples, beaches, adventure..."
           style={{
             padding: 10,
             width: "250px",
@@ -174,7 +189,6 @@ function App() {
             border: "1px solid #ccc",
           }}
         />
-
         <button
           onClick={askAI}
           style={{
@@ -184,11 +198,11 @@ function App() {
             color: "white",
             border: "none",
             borderRadius: 5,
+            cursor: "pointer",
           }}
         >
           Ask
         </button>
-
         <p style={{ marginTop: 10, fontWeight: "bold" }}>{reply}</p>
       </div>
     </div>
